@@ -52,42 +52,10 @@ static void PrintRuntimeError(Umka *umka)
 	}
 }
 
-static void GetInfoContext(UmkaStackSlot *params, UmkaStackSlot *result)
+void GetState(UmkaStackSlot *params, UmkaStackSlot *result)
 {
-	typedef UmkaDynArray(state_t) States;
-	typedef UmkaDynArray(char *) Strings;
-	typedef UmkaDynArray(mobjinfo_t) MobjInfos;
-
-	typedef struct
-	{
-		States originalStates;
-		Strings originalSprNames;
-		MobjInfos originalMobjInfo;
-		States states;
-		Strings sprNames;
-		MobjInfos mobjInfo;
-		int zmt_ambientSound;
-	} InfoContextResult;
-
-	static InfoContextResult infoContextResult;
-
-	const UmkaType *resultType = umkaGetResultType(params, result);
-	const UmkaType *field0Type = umkaGetFieldType(resultType, "originalStates");
-
-	umkaMakeDynArray(
-		umka_,
-		&infoContextResult.originalStates,
-		field0Type,
-		NUMSTATES);
-
-	for (int i = 0; i < NUMSTATES; i++)
-	{
-		infoContextResult.originalStates.data[i] = original_states[i];
-	}
-
-	infoContextResult.zmt_ambientSound = zmt_ambientsound;
-
-	umkaGetResult(params, result)->ptrVal = &infoContextResult;
+	statenum_t stateNum = umkaGetParam(params, 0)->intVal;
+	umkaGetResult(params, result)->ptrVal =	&states[stateNum];
 }
 
 void FoodInit(void)
@@ -111,7 +79,7 @@ void FoodInit(void)
 		return;
 	}
 
-	umkaAddFunc(umka_, "getInfoContext", GetInfoContext);
+	umkaAddFunc(umka_, "getState", GetState);
 
 	ok = umkaCompile(umka_);
 

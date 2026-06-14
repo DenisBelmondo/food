@@ -1321,7 +1321,7 @@ type State* = struct {
 	sprite: int32
 	frame: int32
 	tics: int32
-	action: fn()
+	action: weak ^void
 	nextState: int32
 	misc1: int32
 	misc2: int32
@@ -1558,27 +1558,16 @@ type MobjInfo* = struct {
 }
 
 const noAltSpeed* = -1
-
-type InfoContext* = struct {
-	originalStates: []State
-	originalSprNames: []str
-	originalMobjInfo: []MobjInfo
-
-	// DSDHacked
-	states: []State
-	sprNames: []str
-	mobjInfo: []MobjInfo
-	zmt_ambientSound: int32
-}
-
 const zmt_undefined* = -2
 
-fn getInfoContext*(): InfoContext
+fn getState(stateNum: int32): weak ^State
 
 // end info
 
 fn main() {
-	var infoContext: InfoContext = getInfoContext()
+	for i := s_pistol1; i <= s_pistolflash; i++ {
+		var state: weak ^State = getState(i)
 
-	printf("%d\n", len(infoContext.originalStates))
+		state.tics /= 2
+	}
 }
