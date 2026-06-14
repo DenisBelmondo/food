@@ -1321,7 +1321,7 @@ type State* = struct {
 	sprite: int32
 	frame: int32
 	tics: int32
-	action: weak ^void
+	action: ^void
 	nextState: int32
 	misc1: int32
 	misc2: int32
@@ -1560,13 +1560,13 @@ type MobjInfo* = struct {
 const noAltSpeed* = -1
 const zmt_undefined* = -2
 
-fn getState(stateNum: int32): weak ^State
+fn getState(stateNum: int32): ^State
 
 // end info
 
 fn main() {
 	for i := s_pistol1; i <= s_pistolflash; i++ {
-		var state: weak ^State = getState(i)
+		var state: ^State = getState(i)
 
 		state.tics /= 2
 	}
