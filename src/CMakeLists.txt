@@ -195,6 +195,7 @@ set(WOOF_SOURCES
     wi_interlvl.c          wi_interlvl.h
     ws_stuff.c             ws_stuff.h
     z_zone.c               z_zone.h
+		food.c
 )
 
 # Standard target definition

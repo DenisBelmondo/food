@@ -91,6 +91,8 @@
 #include "ws_stuff.h"
 #include "z_zone.h"
 
+#include "food.h"
+
 boolean devparm;        // started game with -devparm
 
 // jff 1/24/98 add new versions of these variables to remember command line
@@ -2439,6 +2441,8 @@ void D_DoomMain(void)
   {
     I_AtExitPrio(D_EndDoom, false, "D_EndDoom", exit_priority_last);
   }
+
+	FoodInit();
 
   TryRunTics();
 

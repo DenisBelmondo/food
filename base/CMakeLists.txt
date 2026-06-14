@@ -220,6 +220,7 @@ set(BASE_SOURCES
     all-all/sbhuddef.json
     all-all/skytran.lmp
     all-all/switches.lmp
+		all-all/umka.um
 
     betalevl.wad/umapinfo.lmp
 
